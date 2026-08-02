@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="light dark" />
     <meta
       name="description"
-      content="數字透網：手寫數字經小型神經網路前向傳播，即時看隱藏層與機率。純前端 Playgrounds SAM。"
+      content="數字透網：手寫數字經小型神經網路前向傳播，訊號粒子與節點發光。純前端 Playgrounds SAM。"
     />
     <title>數字透網</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -15,10 +15,10 @@
     <main>
       <header class="hero">
         <h1>數字透網</h1>
-        <p class="tagline">手寫數字 · 前向傳播 · 節點發光</p>
+        <p class="tagline">手寫數字 · 訊號流動 · 節點呼吸</p>
       </header>
       <p class="note">
-        在左側畫 0–9（白線、深底，盡量置中）。中間是極小 MLP 的活化；右側是 softmax 機率。點隱藏節點可看該單元對像素的權重。教學玩具，不是正式辨識引擎。
+        左側畫 0–9（或點下方示範）。畫的同時網路會亮起來；鬆手會掃過一波前向傳播，粒子沿連線跑。點隱藏節點看權重熱圖。教學玩具，不是正式辨識引擎。
       </p>
       <p class="status" id="status">…</p>
 
@@ -28,7 +28,9 @@
           <canvas id="pad" width="280" height="280" aria-label="手寫畫布"></canvas>
           <div class="controls">
             <button type="button" id="btn-clear" class="secondary">清空</button>
+            <button type="button" id="btn-pulse" class="secondary">再流一次</button>
           </div>
+          <div class="samples" id="samples" aria-label="示範數字"></div>
         </section>
 
         <section class="panel net-panel">
@@ -36,12 +38,15 @@
           <canvas id="net" aria-label="神經網路可視化"></canvas>
           <div class="heat-wrap">
             <canvas id="heat" width="192" height="192" aria-label="隱藏單元權重熱圖"></canvas>
-            <p class="heat-hint" id="heat-hint">點網路中間的隱藏節點，看它對哪些像素敏感。</p>
+            <p class="heat-hint" id="heat-hint">點隱藏節點看權重；畫的時候訊號會沿連線流動。</p>
           </div>
         </section>
 
         <section class="panel out-panel">
-          <h2>猜測 <span id="pred" class="pred">—</span></h2>
+          <h2 id="pred-wrap">
+            猜測 <span id="pred" class="pred">—</span>
+            <span id="conf" class="conf" aria-hidden="true"></span>
+          </h2>
           <div id="bars" class="bars" aria-live="polite"></div>
         </section>
       </div>

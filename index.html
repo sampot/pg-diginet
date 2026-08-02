@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="數字透網：手寫數字經小型神經網路前向傳播，即時看隱藏層與機率。純前端 Playgrounds SAM。"
+    />
+    <title>數字透網</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <h1>數字透網</h1>
+        <p class="tagline">手寫數字 · 前向傳播 · 節點發光</p>
+      </header>
+      <p class="note">
+        在左側畫 0–9（白線、深底，盡量置中）。中間是極小 MLP 的活化；右側是 softmax 機率。點隱藏節點可看該單元對像素的權重。教學玩具，不是正式辨識引擎。
+      </p>
+      <p class="status" id="status">…</p>
+
+      <div class="stage">
+        <section class="panel draw-panel">
+          <h2>畫數字</h2>
+          <canvas id="pad" width="280" height="280" aria-label="手寫畫布"></canvas>
+          <div class="controls">
+            <button type="button" id="btn-clear" class="secondary">清空</button>
+          </div>
+        </section>
+
+        <section class="panel net-panel">
+          <h2>網路</h2>
+          <canvas id="net" aria-label="神經網路可視化"></canvas>
+          <div class="heat-wrap">
+            <canvas id="heat" width="192" height="192" aria-label="隱藏單元權重熱圖"></canvas>
+            <p class="heat-hint" id="heat-hint">點網路中間的隱藏節點，看它對哪些像素敏感。</p>
+          </div>
+        </section>
+
+        <section class="panel out-panel">
+          <h2>猜測 <span id="pred" class="pred">—</span></h2>
+          <div id="bars" class="bars" aria-live="polite"></div>
+        </section>
+      </div>
+
+      <p class="hint">
+        Playgrounds <a href="https://samkuo.me/playgrounds/">遊樂場</a> 範本小品 · 權重來自縮小版
+        MNIST。
+      </p>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
